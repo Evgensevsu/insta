@@ -1,0 +1,56 @@
+<link rel="stylesheet" href="/assets/styles.css">
+
+<style>
+  .follow-button {
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+
+  .unfollow-button {
+    padding: 10px 20px;
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+
+</style>
+
+<div align="center">
+  <% if @user.present? %>
+    <!-- Отображение информации о пользователе -->
+    <h2><u class="email"><%= @user.email %></u></h2>
+
+    <% if current_user != @user %> <!-- Добавлено условие для отображения кнопки только при несовпадении текущего пользователя с просматриваемым -->
+      <% if current_user.following?(@user) %>
+        <%= button_to "Unfollow", unfollow_path(@user), class: "unfollow-button" %>
+      <% else %>
+        <%= button_to "Follow", follow_path(@user), class: "follow-button" %>
+      <% end %>
+    <% end %>
+
+    <!-- Вывод постов пользователя -->
+    <% if @user.posts.any? %>
+      <% @user.posts.each do |post| %>
+        <div class="container">
+          <h3><%= post.title %></h3>
+          <p><%= post.description %></p>
+          <p><%= post.keywords %></p>
+
+          <%= image_tag post.images.first, style: "object-fit: cover; width: 350px; height: 300px;" if post.images.first %>
+          <!-- Другие данные поста -->
+        </div>
+      <% end %>
+    <% else %>
+      <!-- Обработка случая, когда у пользователя нет постов -->
+      <p>У данного пользователя нет постов.</p>
+    <% end %>
+
+  <% else %>
+    <!-- Обработка случая, когда экземпляр модели User не найден -->
+    <p>Пользователь не найден.</p>
+  <% end %>
+</div>
