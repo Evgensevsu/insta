@@ -30,6 +30,12 @@ gem "devise"
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
 
+group :development, :test do
+  gem 'rspec-rails', '~> 6.0.0'
+end
+
+# Or, run against the main branch
+# (requires main-branch versions of all related RSpec libraries)
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 
@@ -67,6 +73,8 @@ end
 
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
+  gem 'shoulda-matchers', '~> 4.0'
+  gem 'factory_bot'
   gem "capybara"
   gem "selenium-webdriver"
   gem "webdrivers"

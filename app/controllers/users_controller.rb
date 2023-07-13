@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
+
   before_action :set_user, except: [:index]
+
   def show
     @user = User.find(params[:id])
     @post = Post.where(user: current_user)
@@ -10,6 +12,7 @@ class UsersController < ApplicationController
     @user.accept_follow_request_of(current_user)
     redirect_back(fallback_location: users_path(@user))
   end
+  
   def unfollow
     current_user.unfollow(@user)
     redirect_back(fallback_location: users_path(@user))

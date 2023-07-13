@@ -3,7 +3,6 @@ Rails.application.routes.draw do
   resources :posts do
     resources :comments, only: [:new,:create, :destroy]
   end
-
   devise_scope :user do
     
     get '/users', to: 'devise/registrations#new'
